@@ -1251,6 +1251,7 @@ class YoutubeBaseInfoExtractor(InfoExtractor):
                 f'Cannot parse localized time text "{text}"', only_once=True)
         return timestamp
 
+    # 请求youtube player api
     def _extract_response(self, item_id, query, note='Downloading API JSON', headers=None,
                           ytcfg=None, check_get_keys=None, ep='browse', fatal=True, api_hostname=None,
                           default_client='web'):
@@ -1265,10 +1266,16 @@ class YoutubeBaseInfoExtractor(InfoExtractor):
         # and its result MUST be checked if the manager is non fatal
         while True:
             try:
+                context =self._extract_context(ytcfg, default_client)
+
+                print("........调用api........")
+                print(f" ep:{ep}, item_id:{item_id}, query:{query}, headers:{headers}, context:{context}, api_hostname:{api_hostname}, default_client:{default_client}")
+                print()
+
                 response = self._call_api(
                     ep=ep, fatal=True, headers=headers,
                     video_id=item_id, query=query, note=note,
-                    context=self._extract_context(ytcfg, default_client),
+                    context=context,
                     api_hostname=api_hostname, default_client=default_client)
             except ExtractorError as e:
                 if not isinstance(e.cause, network_exceptions):

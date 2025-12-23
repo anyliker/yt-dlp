@@ -58,7 +58,7 @@ if __name__ == "__main__":
     yt_url = "https://www.youtube.com/watch?v=odN890XAfek"
 
     links = get_youtube_download_links(yt_url)
-    print('links.....', links)
+    # print('links.....', links)
     if links:
         print(f"视频标题：{links['title']}")
         print("\n可用下载格式及链接：")
