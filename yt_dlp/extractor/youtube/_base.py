@@ -1268,8 +1268,14 @@ class YoutubeBaseInfoExtractor(InfoExtractor):
             try:
                 context =self._extract_context(ytcfg, default_client)
 
+                print()
                 print("........调用api........")
-                print(f" ep:{ep}, item_id:{item_id}, query:{query}, headers:{headers}, context:{context}, api_hostname:{api_hostname}, default_client:{default_client}")
+                print(f" ep:{ep}, item_id:{item_id}, api_hostname:{api_hostname}, default_client:{default_client}")
+                print(f"headers:{headers}")
+                print(f"query:{query}")
+                print(f"context:{context}")
+                print(f"ytcfg:{ytcfg}")
+                print()
                 print()
 
                 response = self._call_api(
