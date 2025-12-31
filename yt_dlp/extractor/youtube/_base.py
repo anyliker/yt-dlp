@@ -93,7 +93,7 @@ WEB_PO_TOKEN_POLICIES = {
     'SUBS_PO_TOKEN_POLICY': SubsPoTokenPolicy(required=False),
 }
 
-# any clients starting with _ cannot be explicitly requested by the user
+# youtube 预设客户端
 INNERTUBE_CLIENTS = {
     'web': {
         'INNERTUBE_CONTEXT': {

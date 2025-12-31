@@ -211,6 +211,22 @@ def write_json_file(obj, fn):
         raise
 
 
+def save_json(filename, json_obj):
+    """将 JSON 对象写入文件（简化版，用于调试）"""
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+    with open(filename, 'w', encoding='utf-8') as f:
+        json.dump(json_obj, f, indent=4, ensure_ascii=False)
+    print(f"保存文件: {filename}")
+
+
+def save_text(filename, text):
+    """将文本写入文件（简化版，用于调试）"""
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+    with open(filename, 'w', encoding='utf-8') as f:
+        f.write(text)
+    print(f"保存文件: {filename}")
+
+
 def partial_application(func):
     sig = inspect.signature(func)
     required_args = [

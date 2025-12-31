@@ -67,6 +67,8 @@ from ...utils import (
     url_or_none,
     urljoin,
     variadic,
+    save_json,
+    save_text
 )
 from ...utils.networking import clean_headers, clean_proxies, select_proxy
 
@@ -3714,6 +3716,7 @@ class YoutubeIE(YoutubeBaseInfoExtractor):
 
         return live_broadcast_details, live_status, formats, subtitles
 
+    # 获取初始数据
     def _download_initial_data(self, video_id, webpage, webpage_client, webpage_ytcfg):
         initial_data = None
         if webpage and 'initial_data' not in self._configuration_arg('webpage_skip'):
@@ -3743,9 +3746,15 @@ class YoutubeIE(YoutubeBaseInfoExtractor):
 
     def _initial_extract(self, url, smuggled_data, webpage_url, webpage_client, video_id):
         # This function is also used by live-from-start refresh
+        # 提取页面 ytcfg
         webpage = self._download_initial_webpage(webpage_url, webpage_client, video_id)
         webpage_ytcfg = self.extract_ytcfg(video_id, webpage) or self._get_default_ytcfg(webpage_client)
+        
+        # 将内容写入文件
+        save_text(f'_data/{video_id}_webpage.html', webpage)
+        save_json(f'_data/{video_id}_ytcfg.json', webpage_ytcfg)
 
+        # 下载初始数据 player api / 从 webpage 中提取 ytInitialData
         initial_data = self._download_initial_data(video_id, webpage, webpage_client, webpage_ytcfg)
 
         is_premium_subscriber = self._is_premium_subscriber(initial_data)
